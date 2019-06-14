@@ -141,7 +141,7 @@ const DecryptLetter = ({
   updates: { decryptLetter: update }
 }, {
   fetchLetter: {
-    encryptedMessage
+    message: encryptedMessage
   },
   decryptLetter: {
     recipientPrivateKey,
@@ -150,7 +150,7 @@ const DecryptLetter = ({
 }) => ([
   h('h3', {}, '2. Decrypt Letter'),
   decryptedMessage ?
-    h('p', {}, `Decrypted message: ${decryptedMessage}`) :
+    h('h4', {}, `Decrypted message: ${decryptedMessage}`) :
     h('div', {}, [
       h('input', {
         type: 'text',
@@ -217,25 +217,28 @@ const CancelLetter = ({
   }
 }) => ([
   h('h3', {}, '1. Cancel Letter'),
-  h('input', {
-    type: 'text',
-    placeholder: 'Letter hash',
-    value: letterHash,
-    disabled: true,
-    // oninput: update('letterHash')
-  }),
-  h('input', {
-    type: 'text',
-    placeholder: 'Sender private key',
-    value: senderPrivateKey,
-    oninput: update('senderPrivateKey')
-  }),
-  h('button', {
-    onclick: [request, {
-      letterHash, senderPrivateKey
-    }]
-  }, 'Cancel Letter'),
-  transactionHash && h('p', {}, `Letter canceled on transaction: ${transactionHash}`)
+  transactionHash ?
+    h('h4', {}, `Letter cancelled on transaction: ${transactionHash}`) :
+    h('div', {}, [
+      h('input', {
+        type: 'text',
+        placeholder: 'Letter hash',
+        value: letterHash,
+        disabled: true,
+        // oninput: update('letterHash')
+      }),
+      h('input', {
+        type: 'text',
+        placeholder: 'Sender private key',
+        value: senderPrivateKey,
+        oninput: update('senderPrivateKey')
+      }),
+      h('button', {
+        onclick: [request, {
+          letterHash, senderPrivateKey
+        }]
+      }, 'Cancel Letter')
+    ])
 ])
 
 const RevealLetter = (actions, state) => ([

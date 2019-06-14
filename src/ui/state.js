@@ -3,14 +3,14 @@ module.exports = {
   currentLetterHash: '',
   confirmPayment: {
     done: false,
-    paymentAmount: '0.01 ETH',
+    paymentAmount: '0.01',
     paymentAddress: '0xA6279eF0c0C4BEa836E7e22AcC445f74BEa33CbD',
     transactionHash: ''
   },
   fetchLetter: {
     done: false,
     letterHash: '',
-    encryptedLetter: ''
+    message: ''
   },
   encryptLetter: {
     done: false,

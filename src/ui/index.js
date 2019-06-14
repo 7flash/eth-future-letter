@@ -2,10 +2,10 @@ const { h, app } = require('hyperapp')
 
 const state = require('./state')
 const actions = require('./actions')
-const { CreateLetter, CancelLetter, RevealLetter }= require('./components')
+const { CreateLetter, CancelLetter, RevealLetter } = require('./components')
 
-const getPage = (url) => {
-  const hashPath = url.substring(url.indexOf('#'), url.indexOf('-'))
+const getCurrentPage = () => {
+  const hashPath = location.hash.substring(0, location.hash.indexOf('-'))
 
   if (hashPath == '#cancel')
     return 'cancel'
@@ -16,8 +16,8 @@ const getPage = (url) => {
   return 'create'
 }
 
-const getLetterHash = (url) => {
-  const letterHash = url.substr(url.indexOf('-0x') + 1)
+const getCurrentLetterHash = () => {
+  const letterHash = location.hash.substring(location.hash.indexOf('-') + 1)
 
   return letterHash || ''
 }
@@ -25,8 +25,8 @@ const getLetterHash = (url) => {
 app({
   init: () => ({
     ...state,
-    currentPage: getPage(location.href),
-    currentLetterHash: getLetterHash(location.href)
+    currentPage: getCurrentPage(),
+    currentLetterHash: getCurrentLetterHash()
   }),
   view: state =>
     h('section', {}, [

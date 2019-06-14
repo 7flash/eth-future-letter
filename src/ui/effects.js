@@ -3,8 +3,10 @@ const { generateAccount, encryptMessage, decryptMessage, signLetterHash, recover
 
 const confirmPayment = ({ transactionHash }) => ({})
 
+const baseurl = location.origin + location.pathname
+
 const fetchLetter = ({ letterHash }) =>
-  fetch('/fetchLetter', {
+  fetch(`${baseurl}fetchLetter`, {
     method: 'POST',
     body: JSON.stringify({
       letterHash
@@ -30,7 +32,7 @@ const encryptLetter = ({ rawLetter }) => {
 }
 
 const scheduleLetter = ({ senderAddress, encryptedMessage, recipientEmail, deliveryDate }) =>
-  fetch('/scheduleLetter', {
+  fetch(`${baseurl}scheduleLetter`, {
     method: 'POST',
     body: JSON.stringify({
       sender: senderAddress,
@@ -44,7 +46,7 @@ const scheduleLetter = ({ senderAddress, encryptedMessage, recipientEmail, deliv
 const cancelLetter = ({ letterHash, senderPrivateKey }) => {
   const senderSignature = signLetterHash(letterHash, senderPrivateKey)
 
-  return fetch('/cancelLetter', {
+  return fetch(`${baseurl}cancelLetter`, {
     method: 'POST',
     body: JSON.stringify({
       letterHash,

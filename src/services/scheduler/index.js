@@ -22,9 +22,9 @@ const scheduler = ({ storage, contract }) => ({
   },
 
   fetchLetter: async ({ letterHash }) => {
-    const encryptedMessage = await storage.fetchLetter(letterHash)
+    const { message } = await storage.fetchLetter(letterHash)
 
-    return { encryptedMessage }
+    return { message }
   }
 })
 
