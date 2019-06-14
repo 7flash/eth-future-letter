@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "contracts:deploy": "node ./bin/deploy.contracts.js",
+    "frontend:start": "parcel ./src/ui/index.html",
     "frontend:build": "parcel build ./src/ui/index.html --public-url ./",
     "backend:start": "node ./bin/start.server.js",
     "test": "riteway test/*.test.js | tap-nirvana"

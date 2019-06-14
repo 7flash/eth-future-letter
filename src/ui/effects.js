@@ -1,6 +1,17 @@
 const effect = require('../helpers/effect')
 const { generateAccount, encryptMessage, decryptMessage, signLetterHash, recoverLetterSigner } = require('../helpers/crypto')
 
+const confirmPayment = ({ transactionHash }) => ({})
+
+const fetchLetter = ({ letterHash }) =>
+  fetch('/fetchLetter', {
+    method: 'POST',
+    body: JSON.stringify({
+      letterHash
+    })
+  })
+    .then(response => response.json())
+
 const encryptLetter = ({ rawLetter }) => {
   return Promise.all([
     generateAccount(),
@@ -47,6 +58,8 @@ const decryptLetter = ({ encryptedMessage, recipientPrivateKey }) => ({
 })
 
 module.exports = {
+  fetchLetter: effect(fetchLetter),
+  confirmPayment: effect(confirmPayment),
   encryptLetter: effect(encryptLetter),
   scheduleLetter: effect(scheduleLetter),
   cancelLetter: effect(cancelLetter),

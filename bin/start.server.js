@@ -25,6 +25,15 @@ const main = async () => {
     return response
   })
 
+  fastify.post('/fetchLetter', async (request, reply) => {
+    const args = JSON.parse(request.body)
+
+    const response = await scheduler.fetchLetter(args)
+
+    reply.type('application/json').code(200)
+    return response
+  })
+
   fastify.register(require('fastify-static'), {
     root: path.join(__dirname, '..', 'dist')
   })

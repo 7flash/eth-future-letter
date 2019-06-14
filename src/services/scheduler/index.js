@@ -19,6 +19,12 @@ const scheduler = ({ storage, contract }) => ({
     } else {
       throw new Error('invalid signature')
     }
+  },
+
+  fetchLetter: async ({ letterHash }) => {
+    const encryptedMessage = await storage.fetchLetter(letterHash)
+
+    return { encryptedMessage }
   }
 })
 
